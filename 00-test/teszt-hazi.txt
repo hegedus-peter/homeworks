@@ -1,2 +1,3 @@
 Ez egy teszt házi.
 Ez egy módosítás.
+Ez egy javitas.
