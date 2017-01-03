@@ -4,13 +4,13 @@ import java.util.UUID;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import xyz.codingmentor.constraint.DeviceEntityAnnotation;
+import xyz.codingmentor.constraint.DeviceEntityManufacturerAnnotation;
 
 /**
  *
  * @author Péter
  */
-@DeviceEntityAnnotation
+@DeviceEntityManufacturerAnnotation
 public class Device {
 
     @NotNull

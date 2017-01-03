@@ -368,7 +368,7 @@ public class UserEntityTest {
         Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals(user, violations.iterator().next().getInvalidValue());
-        Assert.assertEquals("{UserEntity.message}", violations.iterator().next().getMessageTemplate());
+        Assert.assertEquals("{UserEntityName.message}", violations.iterator().next().getMessageTemplate());
     }
     
     @Test
@@ -390,7 +390,7 @@ public class UserEntityTest {
         Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals(user, violations.iterator().next().getInvalidValue());
-        Assert.assertEquals("{UserEntity.message}", violations.iterator().next().getMessageTemplate());
+        Assert.assertEquals("{UserEntityName.message}", violations.iterator().next().getMessageTemplate());
     }
     
     @Test
@@ -414,6 +414,6 @@ public class UserEntityTest {
         Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals(user, violations.iterator().next().getInvalidValue());
-        Assert.assertEquals("{UserEntity.message}", violations.iterator().next().getMessageTemplate());
+        Assert.assertEquals("{UserEntityDate.message}", violations.iterator().next().getMessageTemplate());
     }
 }

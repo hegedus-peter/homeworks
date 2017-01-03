@@ -8,13 +8,15 @@ import xyz.codingmentor.constraint.Password;
 import xyz.codingmentor.constraint.Address;
 import xyz.codingmentor.constraint.Email;
 import xyz.codingmentor.constraint.Phone;
-import xyz.codingmentor.constraint.UserEntityAnnotation;
+import xyz.codingmentor.constraint.UserEntityDateAnnotation;
+import xyz.codingmentor.constraint.UserEntityNameAnnotation;
 
 /**
  *
  * @author Péter
  */
-@UserEntityAnnotation
+@UserEntityNameAnnotation
+@UserEntityDateAnnotation
 public class UserEntity {
 
     @Size(min=6) @NotNull

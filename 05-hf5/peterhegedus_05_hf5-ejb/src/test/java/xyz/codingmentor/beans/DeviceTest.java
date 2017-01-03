@@ -133,7 +133,7 @@ public class DeviceTest {
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals(device, violations.iterator().next().getInvalidValue());
-        Assert.assertEquals("{DeviceEntity.message}", violations.iterator().next().getMessageTemplate());
+        Assert.assertEquals("{DeviceEntityManufacturer.message}", violations.iterator().next().getMessageTemplate());
     }
     
     @Test
@@ -145,7 +145,7 @@ public class DeviceTest {
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals(device, violations.iterator().next().getInvalidValue());
-        Assert.assertEquals("{DeviceEntity.message}", violations.iterator().next().getMessageTemplate());
+        Assert.assertEquals("{DeviceEntityManufacturer.message}", violations.iterator().next().getMessageTemplate());
     }
     
     @Test 
