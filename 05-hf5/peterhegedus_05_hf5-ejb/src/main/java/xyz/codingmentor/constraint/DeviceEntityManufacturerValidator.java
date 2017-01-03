@@ -48,13 +48,5 @@ public class DeviceEntityManufacturerValidator implements ConstraintValidator<De
         }
        return true;
     }
-    
-    public boolean idValid(Device device){
-        
-        if(null!=device.getId()){
-            return 36==device.getId().length();    
-        }
-       return false;
-    }
-
+   
 }
