@@ -1,10 +1,13 @@
 package xyz.codingmentor.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import xyz.codingmentor.beans.Device;
-import xyz.codingmentor.exceptions.DeviceDBException;
+import xyz.codingmentor.exceptions.DeviceDBAlreadyThereException;
+import xyz.codingmentor.exceptions.DeviceDBNotFoundException;
 
 /**
  *
@@ -12,62 +15,48 @@ import xyz.codingmentor.exceptions.DeviceDBException;
  */
 public class DeviceDB {
 
-    private final List<Device> data;
+    private final Map<String, Device> data;
 
     public DeviceDB() {
-        data = new ArrayList<>();
+        data = new HashMap<>();
     }
 
     public Device addDevice(Device device) {
-        device.setId(UUID.randomUUID().toString());
-        device.setCount(0);
+        if (!data.containsValue(device)) {
+            device.setId(UUID.randomUUID().toString());
+            device.setCount(0);
 
-        data.add(device);
-        return device;
+            data.put(device.getId(), device);
+            return device;
+        }
+        throw new DeviceDBAlreadyThereException(device.getId());
+
     }
 
     public Device editDevice(Device deviceEntity) {
-        if (null != data) {
-            for (Device device : data) {
-                if (device.getId().equals(deviceEntity.getId())) {
-                    device = deviceEntity;
-                    return device;
-                }
-            }
-            throw new DeviceDBException();
+        if (null != data && data.containsKey(deviceEntity.getId())) {
+            data.put(deviceEntity.getId(), deviceEntity);
+            return data.get(deviceEntity.getId());
         }
-        throw new DeviceDBException();
+        throw new DeviceDBNotFoundException(deviceEntity.getId());
     }
 
     public Device getDevice(String id) {
-        if (null != data) {
-            for (Device device : data) {
-                if (device.getId().equals(id)) {
-                    return device;
-                }
-            }
-            throw new DeviceDBException();
+        if (null != data && data.containsKey(id)) {
+            return data.get(id);
         }
-        throw new DeviceDBException();
+        throw new DeviceDBNotFoundException(id);
     }
 
     public Device deleteDevice(Device deviceEntity) {
-        Device deletedDevice;
-        if (null != data) {
-            for (Device device : data) {
-                if (device.getId().equals(deviceEntity.getId())) {
-                    deletedDevice = device;
-                    data.remove(device);
-                    return deletedDevice;
-                }
-            }
-            throw new DeviceDBException();
+        if (null != data && data.containsKey(deviceEntity.getId())) {
+            return data.remove(deviceEntity.getId());
         }
-        throw new DeviceDBException();
+        throw new DeviceDBNotFoundException(deviceEntity.getId());
     }
 
     public List<Device> getAllDevice() {
-        return this.data;
+        return new ArrayList<>(data.values());
     }
 
 }

@@ -1,6 +1,7 @@
 package xyz.codingmentor.beans;
 
 import java.util.Set;
+import java.util.UUID;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -48,6 +49,7 @@ public class DeviceTest {
     public void shouldRaiseNoConstraintViolation() {
 
         Device device = new Device(manufacturer, type, price, color, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(0, violations.size());
@@ -57,6 +59,7 @@ public class DeviceTest {
     public void shouldRaiseConstraintViolationCauseManufacturerNull() {
 
         Device device = new Device(null, type, price, color, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -67,6 +70,7 @@ public class DeviceTest {
     public void shouldRaiseConstraintViolationCauseTypeNull() {
 
         Device device = new Device(manufacturer, null, price, color, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -78,6 +82,7 @@ public class DeviceTest {
 
         String wrongType = "s";
         Device device = new Device(manufacturer, wrongType, price, color, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -88,6 +93,7 @@ public class DeviceTest {
     public void shouldRaiseConstraintViolationCausePriceNull() {
 
         Device device = new Device(manufacturer, type, null, color, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -99,6 +105,7 @@ public class DeviceTest {
 
         Integer wrongPrice = -1;
         Device device = new Device(manufacturer, type, wrongPrice, color, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -109,6 +116,7 @@ public class DeviceTest {
     public void shouldRaiseConstraintViolationCauseColorNull() {
 
         Device device = new Device(manufacturer, type, price, null, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -119,6 +127,7 @@ public class DeviceTest {
     public void shouldRaiseConstraintViolationCauseCountNull() {
         Manufacturer apple = APPLE;
         Device device = new Device(apple, type, price, color, null);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -130,6 +139,7 @@ public class DeviceTest {
         Color wrongColor = GREEN;
         Manufacturer apple = APPLE;
         Device device = new Device(apple, type, price, wrongColor, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());
@@ -142,6 +152,7 @@ public class DeviceTest {
         Color wrongColor = GREEN;
         Manufacturer samsung = SAMSUNG;
         Device device = new Device(samsung, type, price, wrongColor, count);
+        device.setId(UUID.randomUUID().toString());
 
         Set<ConstraintViolation<Device>> violations = validator.validate(device);
         Assert.assertEquals(1, violations.size());

@@ -1,6 +1,6 @@
 package xyz.codingmentor.beans;
 
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,7 +40,6 @@ public class Device {
         this.price = price;
         this.color = color;
         this.count = count;
-        this.id=UUID.randomUUID().toString();
     }
 
     public Manufacturer getManufacturer() {
@@ -51,6 +50,7 @@ public class Device {
         return this.color;
     }
 
+    @JsonIgnore
     public String getId() {
         return this.id;
     }

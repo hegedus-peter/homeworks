@@ -9,6 +9,8 @@ import org.junit.BeforeClass;
 import xyz.codingmentor.beans.Sex;
 import static xyz.codingmentor.beans.Sex.MALE;
 import xyz.codingmentor.beans.UserEntity;
+import xyz.codingmentor.exceptions.UserDBAlreadyThereException;
+import xyz.codingmentor.exceptions.UserDBNotFoundException;
 
 /**
  *
@@ -84,10 +86,17 @@ public class UserDBTest {
     }
 
     @Test
-    public void testAddUser() {
+    public void testAddUserGood() {
         assertEquals(true, userDB.getAllUser().isEmpty());
         assertEquals(user1, userDB.addUser(user1));
         assertEquals(false, userDB.getAllUser().isEmpty());
+    }
+
+    @Test(expected = UserDBAlreadyThereException.class)
+    public void testAddUserBad() {
+        assertEquals(true, userDB.getAllUser().isEmpty());
+        userDB.addUser(user1);
+        userDB.addUser(user1);
     }
 
     @Test
@@ -98,7 +107,7 @@ public class UserDBTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = UserDBNotFoundException.class)
     public void testGetUserBad() {
         userDB.addUser(user1);
         userDB.getUser(user2.getUsername());
@@ -124,7 +133,7 @@ public class UserDBTest {
         assertEquals(user2, userDB.modifyUser(user2));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = UserDBNotFoundException.class)
     public void testModifyUserBad() {
         userDB.addUser(user1);
         userDB.modifyUser(user2);
@@ -139,7 +148,7 @@ public class UserDBTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = UserDBNotFoundException.class)
     public void testDeleteUserBad() {
         userDB.addUser(user1);
         assertEquals(false, userDB.getAllUser().isEmpty());

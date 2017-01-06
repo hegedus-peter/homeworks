@@ -10,6 +10,8 @@ import static xyz.codingmentor.beans.Color.WHITE;
 import xyz.codingmentor.beans.Manufacturer;
 import static xyz.codingmentor.beans.Manufacturer.HTC;
 import xyz.codingmentor.beans.Device;
+import xyz.codingmentor.exceptions.DeviceDBAlreadyThereException;
+import xyz.codingmentor.exceptions.DeviceDBNotFoundException;
 
 /**
  *
@@ -49,10 +51,17 @@ public class DeviceDBTest {
     }
 
     @Test
-    public void testAddDevice() {
+    public void testAddDeviceGood() {
         assertEquals(true, deviceDB.getAllDevice().isEmpty());
         assertEquals(device1, deviceDB.addDevice(device1));
         assertEquals(false, deviceDB.getAllDevice().isEmpty());
+    }
+
+    @Test(expected = DeviceDBAlreadyThereException.class)
+    public void testAddDeviceBad() {
+        assertEquals(true, deviceDB.getAllDevice().isEmpty());
+        deviceDB.addDevice(device1);
+        deviceDB.addDevice(device1);
     }
 
     @Test
@@ -63,7 +72,7 @@ public class DeviceDBTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = DeviceDBNotFoundException.class)
     public void testGetDeviceBad() {
         deviceDB.addDevice(device1);
         deviceDB.getDevice(device2.getId());
@@ -77,7 +86,7 @@ public class DeviceDBTest {
         assertEquals(device2, deviceDB.editDevice(device2));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = DeviceDBNotFoundException.class)
     public void testEditDeviceBad() {
         deviceDB.addDevice(device1);
         deviceDB.editDevice(device2);
@@ -92,7 +101,7 @@ public class DeviceDBTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = DeviceDBNotFoundException.class)
     public void testDeleteDeviceBad() {
         deviceDB.addDevice(device1);
         assertEquals(false, deviceDB.getAllDevice().isEmpty());

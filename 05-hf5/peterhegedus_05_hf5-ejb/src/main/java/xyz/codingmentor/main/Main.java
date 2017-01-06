@@ -36,12 +36,11 @@ public class Main {
         writeUserToFile(users);
         writeDeviceToFile(devices);
 
-        UserDB userDB = generateUserListFromJson();
-        DeviceDB deviceDB = generateDeviceListFromJson();
+        UserDB userDB=new UserDB();
+        generateUserListFromJson(userDB);
+        DeviceDB deviceDB=new DeviceDB();
+        generateDeviceListFromJson(deviceDB);
         
-        //Had to use theese 2 variables because sonar error
-        userDB.getAllUser();
-        deviceDB.getAllDevice();
     }
 
     public static UserEntity generateUser(String username, String password, String address, String phone, String email, Sex sex) {
@@ -122,7 +121,7 @@ public class Main {
         }
     }
 
-    public static UserDB generateUserListFromJson() {
+    public static void generateUserListFromJson(UserDB userDB) {
         ObjectMapper mapper = new ObjectMapper();
         List<UserEntity> userList = new ArrayList<>();
 
@@ -132,14 +131,12 @@ public class Main {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        UserDB userDB = new UserDB();
         for (UserEntity user : userList) {
             userDB.addUser(user);
         }
-        return userDB;
     }
 
-    public static DeviceDB generateDeviceListFromJson() {
+    public static void generateDeviceListFromJson(DeviceDB deviceDB) {
         ObjectMapper mapper = new ObjectMapper();
         List<Device> deviceList = new ArrayList<>();
 
@@ -149,10 +146,8 @@ public class Main {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DeviceDB deviceDB = new DeviceDB();
         for (Device device : deviceList) {
             deviceDB.addDevice(device);
         }
-        return deviceDB;
     }
 }
