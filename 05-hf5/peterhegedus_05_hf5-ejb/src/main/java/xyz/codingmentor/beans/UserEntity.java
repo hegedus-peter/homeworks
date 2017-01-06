@@ -39,6 +39,10 @@ public class UserEntity {
     private Date dateOfBirth;
     private boolean admin;
 
+    public UserEntity() {
+        //Empty constructor needed for JSON read
+    }
+
     private UserEntity(Builder builder) {
         this.username = builder.username;
         this.password = builder.password;
@@ -101,8 +105,18 @@ public class UserEntity {
     public boolean isAdmin() {
         return admin;
     }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
     
-    static class Builder{
+    
+    
+    public static class Builder{
         
         private String username;
         private String password;

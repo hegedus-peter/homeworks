@@ -29,6 +29,10 @@ public class Device {
     @NotNull
     @Min(0)
     private Integer count;
+    
+    public Device(){
+        //Empty constructor needed for JSON read
+    }
 
     public Device(Manufacturer manufacturer, String type, Integer price, Color color, Integer count) {
         this.manufacturer = manufacturer;
@@ -50,8 +54,28 @@ public class Device {
     public String getId() {
         return this.id;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+    
+    
     
     public void setId(String id){
         this.id=id;
     }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+    
+    
 }
