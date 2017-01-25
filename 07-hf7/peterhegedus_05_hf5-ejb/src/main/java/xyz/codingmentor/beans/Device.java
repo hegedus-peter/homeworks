@@ -1,6 +1,5 @@
 package xyz.codingmentor.beans;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -53,7 +52,6 @@ public class Device {
         return this.color;
     }
 
-    @JsonIgnore
     public String getId() {
         return this.id;
     }

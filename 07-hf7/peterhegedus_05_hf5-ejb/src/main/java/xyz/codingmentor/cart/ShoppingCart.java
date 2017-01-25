@@ -34,7 +34,7 @@ public class ShoppingCart {
     public void addDevice(String id, Integer count) {
         Device actDevice = deviceDB.getDevice(id);
         if (actDevice.getCount() >= count) {
-            ShoppingRecord actRecord = new ShoppingRecord(deviceDB.getDevice(id), count);
+            ShoppingRecord actRecord = new ShoppingRecord(actDevice, count);
             products.put(id, actRecord);
             actDevice.setCount(actDevice.getCount() - count);
             deviceDB.editDevice(actDevice);
