@@ -21,20 +21,29 @@ import xyz.codingmentor.singleton.UserSingleton;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestService {
 
-    //http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users 
+    
+    /**http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users*/
     @GET
     public List<UserEntity> getAllUsers() {
         return UserSingleton.INSTANCE.getAllUsers();
     }
 
-    //http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users body: {"password": "123", "email": "john@john.com", "address": "1234 Budapest, Valami utca 1."}
+    
+    /**http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users
+     * body: 
+     * {
+     * "password": "123",
+     * "email": "john@john.com",
+     * "address": "1234 Budapest, Valami utca 1." 
+     * }
+    */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public UserEntity addUser(UserEntity user) {
         return UserSingleton.INSTANCE.addUser(user);
     }
 
-    //http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users/{example: id from the return statement of post}
+    /**http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users/{example: id from the return statement of post}*/
     @GET
     @Path("/{id}")
     @Consumes(MediaType.TEXT_PLAIN)
@@ -42,7 +51,7 @@ public class UserRestService {
         return UserSingleton.INSTANCE.getUser(id);
     }
 
-    //http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users/{example: id from the return statement of post}  body: json from the return statement of post
+    /**http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users/{example: id from the return statement of post}  body: json from the return statement of post*/
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -50,7 +59,7 @@ public class UserRestService {
         return UserSingleton.INSTANCE.modifyUser(pathId, user);
     }
 
-    //http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users/{example: id from the return statement of post}
+    /**http://localhost:8080/peterhegedus_08_hf8_fin-web/rest/users/{example: id from the return statement of post}*/
     @DELETE
     @Path("/{id}")
     @Consumes(MediaType.TEXT_PLAIN)
