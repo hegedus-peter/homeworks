@@ -1,7 +1,6 @@
 package xyz.codingmentor.service;
 
 import java.io.Serializable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,11 +36,6 @@ public class AsyncService implements Serializable{
             Thread.sleep(10000);
             result = new AsyncResult<>(num1 + num2);
         } catch (InterruptedException ex) {
-            Logger.getLogger(AsyncService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            LOG.log(Level.INFO, result.get().toString());
-        } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(AsyncService.class.getName()).log(Level.SEVERE, null, ex);
         }
         LOG.log(Level.INFO, "Future method finished.");

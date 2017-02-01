@@ -38,7 +38,7 @@ public class AsyncRESTService {
 
     /** http://localhost:8080/peterhegedus_09_hf9-web/asyncrest/async/future/{num1}/{num2}
      * A metódus elindít egy hosszú műveletet(paraméterben kapott 2 szám összege szál alvása után), amíg erre vár, addig mást csinál(log), majd a kapott Future<Integer> típusú eredményből kinyert összeggel kiegészített üzenettel visszatér
-     * Az aszinkron hívás után azért altatom 1 másodpercig, mert túl gyorsan tudta kiírni a "doing something..." üzenetet, így a doing something->start->eredmény->finished helyett a szemléletesebb start->doing something->eredmény->finished üzenetsor íródik ki
+     * Az aszinkron hívás után azért altatom 1 másodpercig, mert túl gyorsan tudta kiírni a "doing something..." üzenetet, így a doing something->start->finished helyett a szemléletesebb start->doing something->finished üzenetsor íródik ki
      */
     @GET
     @Path("/future/{num1}/{num2}")
