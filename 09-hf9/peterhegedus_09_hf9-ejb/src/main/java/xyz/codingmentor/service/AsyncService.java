@@ -1,17 +1,20 @@
 package xyz.codingmentor.service;
 
+import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Péter
  */
-public class AsyncService {
+@Stateless
+public class AsyncService implements Serializable{
     
     private static final Logger LOG = Logger.getLogger(AsyncService.class.getName());
 
@@ -19,7 +22,7 @@ public class AsyncService {
     public void voidMethod() {
         LOG.log(Level.INFO, "Void method starts.");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException ex) {
             Logger.getLogger(AsyncService.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -4,12 +4,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import xyz.codingmentor.exception.AsyncMethodFailedException;
 
 /**
  *
@@ -19,11 +21,12 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.TEXT_PLAIN)
 public class AsyncRESTService {
 
-    private final AsyncService asyncService = new AsyncService();
+    @Inject
+    private AsyncService asyncService;
 
     /**
      * http://localhost:8080/peterhegedus_09_hf9-web/asyncrest/async/void      *
-     * A metódus várakozik, majd jelzi, hogy végzett
+     * A metódus elindít egy hosszú folyamatot(szál altatás), de ennek nem várja meg a végét, hanem egyől visszatér
      *
      */
     @Path("/void")
@@ -34,19 +37,26 @@ public class AsyncRESTService {
     }
 
     /** http://localhost:8080/peterhegedus_09_hf9-web/asyncrest/async/future/{num1}/{num2}
-     * A metódus várakozás után visszaadja a paraméterben kapott 2 szám összegét
+     * A metódus elindít egy hosszú műveletet(paraméterben kapott 2 szám összege szál alvása után), amíg erre vár, addig mást csinál(log), majd a kapott Future<Integer> típusú eredményből kinyert összeggel kiegészített üzenettel visszatér
+     * Az aszinkron hívás után azért altatom 1 másodpercig, mert túl gyorsan tudta kiírni a "doing something..." üzenetet, így a doing something->start->eredmény->finished helyett a szemléletesebb start->doing something->eredmény->finished üzenetsor íródik ki
      */
     @GET
     @Path("/future/{num1}/{num2}")
     @Consumes(MediaType.TEXT_PLAIN)
     public String futureMethod(@PathParam("num1") Integer num1, @PathParam("num2") Integer num2) {
-        String retVal = null;
+        
         Future<Integer> result = asyncService.futureMethod(num1, num2);
         try {
-            retVal = "Future method finished with result: " + result.get().toString();
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AsyncRESTService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Logger.getLogger(AsyncRESTService.class.getName()).log(Level.INFO, "Doing something while async call working.");
+        try {
+            return "Future method finished with result: " + result.get().toString();
         } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(AsyncRESTService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return retVal;
+        throw new AsyncMethodFailedException("AsyncService.futureMethod");
     }
 }
