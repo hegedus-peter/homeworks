@@ -1,0 +1,9 @@
+{
+	"username": "testuser",
+	"password": "Abc12d9",
+	"address": "1234 Budapest, Valami utca 2.",
+	"phone": "06301234567",
+	"email": "testuser@ize.hu",
+	"sex": "MALE",
+	"admin": false
+}

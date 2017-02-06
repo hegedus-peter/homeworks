@@ -1,0 +1,9 @@
+{
+	"username": "admin",
+	"password": "Abc12d9",
+	"address": "1234 Budapest, Valami utca 2.",
+	"phone": "06301234567",
+	"email": "pistike@ize.hu",
+	"sex": "MALE",
+	"admin": true
+}

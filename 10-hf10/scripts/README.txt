@@ -1,0 +1,1 @@
+Mivel a Device elemek id-je futás közben véletlenszerûen generálódik, a device1 és device2 JSON fájlok id mezõjét a "05_get_devices.sh" scipt eredményébõl kézzel kell beállítani a következõ módon: device1 - HTC Eight, device2 - HTC Seven. Ezek után futtathatók a további scriptek.
