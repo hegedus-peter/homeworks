@@ -18,15 +18,13 @@ import xyz.codingmentor.webdto.ResultDTO;
 import static xyz.codingmentor.webdto.ResultType.ERROR;
 import static xyz.codingmentor.webdto.ResultType.SUCCESS;
 import xyz.codingmentor.beans.Device;
-import xyz.codingmentor.beans.UserEntity;
-import xyz.codingmentor.exception.NotLoggedInException;
 import xyz.codingmentor.singleton.DeviceDB;
 
 /**
  *
  * @author Péter
  */
-@Path("/device")
+@Path("/devices")
 @SessionScoped
 public class DeviceRESTService implements Serializable {
 
@@ -40,7 +38,7 @@ public class DeviceRESTService implements Serializable {
     @Produces(MediaType.APPLICATION_JSON)
     public ResultDTO addDevice(@Context HttpServletRequest request, Device device) {
         HttpSession session = request.getSession();
-        if (isLoggedIn(session).isAdmin()) {
+        if (IsLoggedInUtility.isLoggedIn(session).isAdmin()) {
             return new ResultDTO(SUCCESS, deviceDB.addDevice(device));
         }
         return new ResultDTO(ERROR, device);
@@ -52,7 +50,7 @@ public class DeviceRESTService implements Serializable {
     public ResultDTO deleteDevice(@Context HttpServletRequest request, @PathParam("id") String id) {
         HttpSession session = request.getSession();
         Device deletedDevice = deviceDB.getDevice(id);
-        if (isLoggedIn(session).isAdmin()) {
+        if (IsLoggedInUtility.isLoggedIn(session).isAdmin()) {
             return new ResultDTO(SUCCESS, deviceDB.deleteDevice(deletedDevice));
         }
         return new ResultDTO(ERROR, deletedDevice);
@@ -67,16 +65,8 @@ public class DeviceRESTService implements Serializable {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/devices")
     public ResultDTO getAllDevice() {
         return new ResultDTO(SUCCESS, deviceDB.getAllDevice());
     }
 
-    private static UserEntity isLoggedIn(HttpSession session) {
-        if (null != session.getAttribute(UserRESTService.USER_KEY)) {
-            return (UserEntity) session.getAttribute(USER_KEY);
-        } else {
-            throw new NotLoggedInException();
-        }
-    }
 }

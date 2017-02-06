@@ -1,1 +1,1 @@
-curl --verbose --write-out "\n" --request POST --data @admin.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/peterhegedus_05_hf5-web/webshop/user/login
+curl --verbose --write-out "\n" --request POST --data @admin.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/peterhegedus_05_hf5-web/webshop/users/login

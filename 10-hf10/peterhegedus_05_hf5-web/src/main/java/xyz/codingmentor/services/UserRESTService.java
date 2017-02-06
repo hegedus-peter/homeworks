@@ -18,14 +18,13 @@ import xyz.codingmentor.webdto.ResultDTO;
 import static xyz.codingmentor.webdto.ResultType.ERROR;
 import static xyz.codingmentor.webdto.ResultType.SUCCESS;
 import xyz.codingmentor.beans.UserEntity;
-import xyz.codingmentor.exception.NotLoggedInException;
 import xyz.codingmentor.singleton.UserDB;
 
 /**
  *
  * @author Péter
  */
-@Path("/user")
+@Path("/users")
 @SessionScoped
 public class UserRESTService implements Serializable {
 
@@ -39,7 +38,7 @@ public class UserRESTService implements Serializable {
     @Produces(MediaType.APPLICATION_JSON)
     public ResultDTO addUser(@Context HttpServletRequest request, UserEntity user) {
         HttpSession session = request.getSession();
-        if (isLoggedIn(session).isAdmin()) {
+        if (IsLoggedInUtility.isLoggedIn(session).isAdmin()) {
             return new ResultDTO(SUCCESS, userDB.addUser(user));
         }
         return new ResultDTO(ERROR, user);
@@ -51,7 +50,7 @@ public class UserRESTService implements Serializable {
     public ResultDTO deleteUser(@Context HttpServletRequest request, @PathParam("username") String username) {
         HttpSession session = request.getSession();
         UserEntity deletedUser = userDB.getUser(username);
-        if (isLoggedIn(session).isAdmin()) {
+        if (IsLoggedInUtility.isLoggedIn(session).isAdmin()) {
             return new ResultDTO(SUCCESS, userDB.deleteUser(deletedUser));
         }
         return new ResultDTO(ERROR, deletedUser);
@@ -66,7 +65,6 @@ public class UserRESTService implements Serializable {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/users")
     public ResultDTO getAllUsers() {
         return new ResultDTO(SUCCESS, userDB.getAllUser());
     }
@@ -91,18 +89,10 @@ public class UserRESTService implements Serializable {
     @Produces(MediaType.APPLICATION_JSON)
     public ResultDTO logOut(@Context HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserEntity actUser = isLoggedIn(session);
+        UserEntity actUser = IsLoggedInUtility.isLoggedIn(session);
         session.invalidate();
         return new ResultDTO(SUCCESS, actUser);
 
-    }
-
-    private static UserEntity isLoggedIn(HttpSession session) {
-        if (null != session.getAttribute(UserRESTService.USER_KEY)) {
-            return (UserEntity) session.getAttribute(USER_KEY);
-        } else {
-            throw new NotLoggedInException();
-        }
     }
 
 }

@@ -1,1 +1,1 @@
-curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/peterhegedus_05_hf5-web/webshop/device/devices
+curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/peterhegedus_05_hf5-web/webshop/devices
