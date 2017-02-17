@@ -1,0 +1,133 @@
+Test body(movie):
+{
+	"title": "movie1title",
+	"actors": [{
+		"firstName": "actor1firstname",
+		"lastName": "actor1lastname",
+		"nationality": "actor1nationality"
+	}, {
+		"firstName": "actor2firstname",
+		"lastName": "actor2lastname",
+		"nationality": "actor2nationality"
+	}, {
+		"firstName": "actor3firstname",
+		"lastName": "actor3lastname",
+		"nationality": "actor1nationality"
+	}],
+	"trailers": [{
+		"url": "trailer1url",
+		"type": "YOUTUBE",
+		"title": "trailer1title",
+		"publicDate": "2017-02-11T18:25:43+01:00"
+	}],
+	"category": {
+		"name": "category1"
+	}
+}
+
+Movie body:
+{
+	"title": "movie1title"
+}
+
+Actor body:
+{
+	"firstName": "actor1firstname",
+	"lastName": "actor1lastname",
+	"nationality": "actor1nationality"
+}
+
+Trailer body:
+{
+	"url": "trailer1url",
+	"type": "YOUTUBE",
+	"title": "trailer1title",
+	"publicDate": "2017-02-11T18:25:43+01:00"
+}
+
+Category body:
+{
+	"name": "category1"
+}
+
+REST endpoints: 
+
+POST
+http://localhost:8080/hf12-web/rest/movies body:movie
+http://localhost:8080/hf12-web/rest/actors body:actor
+http://localhost:8080/hf12-web/rest/trailers body:trailer
+http://localhost:8080/hf12-web/rest/categories body: category
+
+Add an entity to the database.
+
+PUT
+http://localhost:8080/hf12-web/rest/movies body:movie
+http://localhost:8080/hf12-web/rest/actors body:actor
+http://localhost:8080/hf12-web/rest/trailers body:trailer
+http://localhost:8080/hf12-web/rest/categories body: category
+
+Update an entity in the database.
+
+GET
+http://localhost:8080/hf12-web/rest/movies/{id} 
+http://localhost:8080/hf12-web/rest/actors/{id} 
+http://localhost:8080/hf12-web/rest/trailers/{id}
+http://localhost:8080/hf12-web/rest/categories/{id}
+
+{id} - Long
+
+Get an entity from the database.
+
+DELETE
+http://localhost:8080/hf12-web/rest/movies/{id} 
+http://localhost:8080/hf12-web/rest/actors/{id} 
+http://localhost:8080/hf12-web/rest/trailers/{id}
+http://localhost:8080/hf12-web/rest/categories/{id}
+
+{id} - Long
+
+Delete an entity from the database.
+
+Database:
+
+GET
+http://localhost:8080/hf12-web/rest/database/titlemovie/{title}
+
+{title} - String
+
+Get movies from the database with selected title.
+
+GET
+http://localhost:8080/hf12-web/rest/database/categorymovie/{id}
+
+{id} - Long
+
+Get movies from the database with selected category.
+
+GET
+http://localhost:8080/hf12-web/rest/database/nationalityactor/{nationality}
+
+{nationality} - String
+
+Get actors from the database with selected nationality.
+
+GET
+http://localhost:8080/hf12-web/rest/database/nameactor/{firstName}/{lastName}
+
+{fistName} - String, {lastName} - String
+
+Get actors from the database with selected name.
+
+GET
+http://localhost:8080/hf12-web/rest/database/movieactor/{id}
+
+{id} - Strig
+
+Get actors from the database with selected movie.
+
+GET
+http://localhost:8080/hf12-web/rest/database/movietrailer/{id}
+
+{id} - Long
+
+Get trailers from the database with selected movie.
